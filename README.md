@@ -8,6 +8,8 @@ Project Details:
 - Project Group members:  
     - Shubham Pramod Suryawanshi    
     GitHub Account - https://github.com/shubhamsuryawanshi  
+    Project Branch - https://github.com/shubhamsuryawanshi/neocortexapi/tree/shubham  
+    Project Commit History - https://github.com/shubhamsuryawanshi/neocortexapi/commits/shubham  
     Matriculation No. - 1384291  
 
 Information regarding the [NeoCortexApi](https://github.com/ddobric/neocortexapi) is provided below  
