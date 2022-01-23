@@ -26,5 +26,19 @@ namespace UnitTestsProject
             double result = HomeostaticPlasticityController.CalcArraySimilarity(originArray, comparingArray);
             Assert.AreEqual(0.6, result);
         }
+
+        [TestMethod, Description("Check Equals function: when HomeostaticPlasticityController is compared to itself")]
+        public void TestEquals1()
+        {
+            HomeostaticPlasticityController obj = new HomeostaticPlasticityController();
+            Assert.IsTrue(obj.Equals(obj));
+        }
+
+        [TestMethod, Description("Check Equals function: when HomeostaticPlasticityController is compared to null")]
+        public void TestEquals2()
+        {
+            HomeostaticPlasticityController obj = new HomeostaticPlasticityController();
+            Assert.IsFalse(obj.Equals(null));
+        }
     }
 }
