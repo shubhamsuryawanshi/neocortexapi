@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NeoCortexApi;
 using NeoCortexApi.Entities;
+using System;
 
 namespace UnitTestsProject
 {
@@ -11,7 +12,7 @@ namespace UnitTestsProject
     public class HomeostaticPlasticityControllerTests
     {
         [TestMethod]
-        [Description("Check CalcArraySimilarity funcstion with empty arguments")]
+        [Description("Check CalcArraySimilarity function with empty arguments")]
         public void TestCalcArraySimilarity1()
         {
             int[] originArray = System.Array.Empty<int>();
@@ -100,6 +101,47 @@ namespace UnitTestsProject
             bool result = obj1.Equals(obj2);
 
             Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        [Description("Check Equals function: when minCycles is different for HomeostaticPlasticityController objects")]
+        public void TestEquals6()
+        {
+            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
+            Connections htmMemory1 = new Connections(prms1);
+            double requiredSimilarityThreshold1 = 1.0;
+            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 4, null, 50, requiredSimilarityThreshold1);
+            HomeostaticPlasticityController obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
+
+            bool result = obj1.Equals(obj2);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        [Description("Check Equals function: when numOfCyclesToWaitOnChange is different for HomeostaticPlasticityController objects")]
+        public void TestEquals7()
+        {
+            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
+            Connections htmMemory1 = new Connections(prms1);
+            double requiredSimilarityThreshold1 = 1.0;
+            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null, 40, requiredSimilarityThreshold1);
+            HomeostaticPlasticityController obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
+
+            bool result = obj1.Equals(obj2);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        [Description("Check GetHash function")]
+        public void TestGetHash()
+        {
+            int[] a1 = { 1, 2, 3, 4, 5, 6 };
+            
+            string result = HomeostaticPlasticityController.GetHash(a1);
+            
+            Assert.AreEqual("��V�쬐�h���F@B���Wh�/ߌ?)K��I", result);
         }
     }
 }
