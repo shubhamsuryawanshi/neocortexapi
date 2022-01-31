@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
+using System.Linq;
 using NeoCortexApi;
 using NeoCortexApi.Entities;
-using System;
 
 namespace UnitTestsProject
 {
@@ -27,8 +29,8 @@ namespace UnitTestsProject
         [Description("Check CalcArraySimilarity function")]
         public void TestCalcArraySimilarity2()
         {
-            int[] originArray = {1, 2, 3, 4, 5};
-            int[] comparingArray = {3, 4, 5, 6, 7};
+            int[] originArray = { 1, 2, 3, 4, 5 };
+            int[] comparingArray = { 3, 4, 5, 6, 7 };
 
             double result = HomeostaticPlasticityController.CalcArraySimilarity(originArray, comparingArray);
 
@@ -138,10 +140,30 @@ namespace UnitTestsProject
         public void TestGetHash()
         {
             int[] a1 = { 1, 2, 3, 4, 5, 6 };
-            
+
             string result = HomeostaticPlasticityController.GetHash(a1);
-            
+
             Assert.AreEqual("��V�쬐�h���F@B���Wh�/ߌ?)K��I", result);
+        }
+
+        [TestMethod]
+        [Description("Check TraceState function")]
+        public void TestTraceState()
+        {
+            string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/traceStateTest.txt");
+            string filePath = Path.GetFullPath(fileName);
+
+            string traceStateOutput = "";
+            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
+            Connections htmMemory1 = new Connections(prms1);
+            double requiredSimilarityThreshold1 = 1.0;
+            HomeostaticPlasticityController obj = new HomeostaticPlasticityController(htmMemory1, 10, null, 40, requiredSimilarityThreshold1);
+
+            obj.TraceState(filePath);
+            traceStateOutput = File.ReadLines(filePath).First();
+
+            Assert.AreEqual("MinKey=, min stable states=2147483647", traceStateOutput);
         }
     }
 }
