@@ -165,5 +165,15 @@ namespace UnitTestsProject
 
             Assert.AreEqual("MinKey=, min stable states=2147483647", traceStateOutput);
         }
+
+        [TestMethod]
+        [Description("Check CalcArraySimilarityOld2 function")]
+        public void TestCalcArraySimilarityOld2()
+        {
+            int[] originArray = { 1, 2, 3, 4, 5 };
+            int[] comparingArray = { 6, 7, 3, 4, 5 };
+            double result = HomeostaticPlasticityController.CalcArraySimilarityOld2(originArray, comparingArray);
+            Assert.AreEqual(0.6, result);
+        }
     }
 }
