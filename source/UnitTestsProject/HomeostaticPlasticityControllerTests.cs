@@ -175,5 +175,26 @@ namespace UnitTestsProject
             double result = HomeostaticPlasticityController.CalcArraySimilarityOld2(originArray, comparingArray);
             Assert.AreEqual(0.6, result);
         }
+
+        [TestMethod]
+        [Description("Comparing same HomeostaticPlasticityController object after Serialization and Deserialization")]
+        public void TestDeserialize()
+        {
+            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
+            Connections htmMemory1 = new Connections(prms1);
+            double requiredSimilarityThreshold1 = 1.0;
+            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
+            string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/testSerialize.xml");
+            string filePath = Path.GetFullPath(fileName);
+            StreamWriter streamWriter = new StreamWriter(filePath);
+            StreamReader streamReader = new StreamReader(filePath);
+
+            obj1.Serialize(streamWriter);
+            streamWriter.Close();
+
+            HomeostaticPlasticityController deserializedObject = HomeostaticPlasticityController.Deserialize(streamReader);
+            Assert.IsTrue(obj1.Equals(deserializedObject));
+        }
     }
 }
