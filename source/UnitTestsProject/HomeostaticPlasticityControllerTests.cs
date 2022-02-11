@@ -188,12 +188,13 @@ namespace UnitTestsProject
             string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/testSerialize.xml");
             string filePath = Path.GetFullPath(fileName);
             StreamWriter streamWriter = new StreamWriter(filePath);
-            StreamReader streamReader = new StreamReader(filePath);
-
+            
             obj1.Serialize(streamWriter);
             streamWriter.Close();
 
+            StreamReader streamReader = new StreamReader(filePath);
             HomeostaticPlasticityController deserializedObject = HomeostaticPlasticityController.Deserialize(streamReader);
+            
             Assert.IsTrue(obj1.Equals(deserializedObject));
         }
     }
