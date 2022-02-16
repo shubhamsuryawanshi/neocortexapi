@@ -8,8 +8,9 @@ using Daenet.ImageBinarizerLib;
 using Newtonsoft.Json;
 using System.IO;
 using SkiaSharp;
+using NeoCortexApi.Encoders;
 
-namespace NeoCortexApi.Encoders
+namespace ImageEncoderLib
 {
     /// <summary>
     /// It encodes the image by using the binarization algorithm. The SDR produced by this encoder is a set of binary bits that represent pixels in the image.
@@ -133,8 +134,16 @@ namespace NeoCortexApi.Encoders
             return imageBinarizer.GetArrayBinary();
         }
 
-
-
+        /// <summary>
+        /// This method enables running in the network.
+        /// </summary>
+        /// <param name="inputData"></param>
+        /// <param name="learn"></param>
+        /// <returns></returns>
+        public int[] Compute(object inputData, bool learn)
+        {
+            return Encode(inputData);
+        }
         #endregion
 
         #region Private Methods
