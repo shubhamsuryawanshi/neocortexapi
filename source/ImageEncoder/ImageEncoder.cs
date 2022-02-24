@@ -1,16 +1,12 @@
-﻿using NeoCortexApi.Utility;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using Daenet.ImageBinarizerLib.Entities;
 using Daenet.ImageBinarizerLib;
-using Newtonsoft.Json;
 using System.IO;
 using SkiaSharp;
 using NeoCortexApi.Encoders;
+using System;
 
-namespace ImageEncoderLib
+namespace HtmImageEncoder
 {
     /// <summary>
     /// It encodes the image by using the binarization algorithm. The SDR produced by this encoder is a set of binary bits that represent pixels in the image.
