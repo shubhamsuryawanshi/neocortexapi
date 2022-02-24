@@ -99,5 +99,19 @@ namespace UnitTestsProject
             
             Assert.IsTrue(obj1.Equals(deserializedObject));
         }
+
+        [TestMethod]
+        [Description("Check NeoCortexApi.Entities.HtmSerializer2.IsEqual function to compare HomeostaticPlasticityController objects")]
+        public void TestIsEqual()
+        {
+            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
+            Connections htmMemory1 = new Connections(prms1);
+            double requiredSimilarityThreshold1 = 1.0;
+            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null, 40, requiredSimilarityThreshold1);
+            HomeostaticPlasticityController obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 40, requiredSimilarityThreshold1);
+
+            bool result = NeoCortexApi.Entities.HtmSerializer2.IsEqual(obj1, obj2);
+            Assert.IsTrue(result);
+        }
     }
 }
