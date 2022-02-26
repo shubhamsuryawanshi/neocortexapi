@@ -79,28 +79,6 @@ namespace UnitTestsProject
         }
 
         [TestMethod]
-        [Description("Comparing same HomeostaticPlasticityController object after Serialization and Deserialization")]
-        public void TestDeserialize()
-        {
-            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
-            Connections htmMemory1 = new Connections(prms1);
-            double requiredSimilarityThreshold1 = 1.0;
-            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
-            string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/testSerialize.xml");
-            string filePath = Path.GetFullPath(fileName);
-            StreamWriter streamWriter = new StreamWriter(filePath);
-            
-            obj1.Serialize(streamWriter);
-            streamWriter.Close();
-
-            StreamReader streamReader = new StreamReader(filePath);
-            HomeostaticPlasticityController deserializedObject = HomeostaticPlasticityController.Deserialize(streamReader);
-            
-            Assert.IsTrue(obj1.Equals(deserializedObject));
-        }
-
-        [TestMethod]
         [Description("Check NeoCortexApi.Entities.HtmSerializer2.IsEqual function to compare HomeostaticPlasticityController objects")]
         public void TestIsEqual()
         {
