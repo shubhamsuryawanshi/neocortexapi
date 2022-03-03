@@ -393,10 +393,11 @@ namespace NeoCortexApi
             }
         }
 
-        public static HomeostaticPlasticityController Deserialize(StreamReader sr)
+        public static HomeostaticPlasticityController Deserialize(StreamReader sr, Connections htmMemory=null)
         {
             HomeostaticPlasticityController ctrl = new HomeostaticPlasticityController();
-
+            ctrl.m_HtmMemory = htmMemory;
+            
             HtmSerializer2 ser = new HtmSerializer2();
 
             while (sr.Peek() >= 0)
