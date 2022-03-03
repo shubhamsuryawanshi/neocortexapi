@@ -91,5 +91,27 @@ namespace UnitTestsProject
             bool result = NeoCortexApi.Entities.HtmSerializer2.IsEqual(obj1, obj2);
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        [Description("Check Serialization and Deserialization for a HomeostaticPlasticityController object")]
+        public void TestDeserialize()
+        {
+            HtmConfig prms = new HtmConfig(new int[4], new int[4]);
+            Connections htmMemory = new Connections(prms);
+            double requiredSimilarityThreshold = 1.0;
+            HomeostaticPlasticityController homeostaticPlasticityController = new HomeostaticPlasticityController(htmMemory, 5, null, 50, requiredSimilarityThreshold);
+            string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/testSerialize.txt");
+            string filePath = Path.GetFullPath(fileName);
+
+            StreamWriter streamWriter = new StreamWriter(filePath);
+            homeostaticPlasticityController.Serialize(streamWriter);
+            streamWriter.Close();
+
+            StreamReader streamReader = new StreamReader(filePath);
+            HomeostaticPlasticityController deserializedObject = HomeostaticPlasticityController.Deserialize(streamReader, htmMemory);
+
+            Assert.IsTrue(homeostaticPlasticityController.Equals(deserializedObject));
+        }
     }
 }
