@@ -384,14 +384,13 @@ namespace NeoCortexApi
             ser.SerializeValue(this.m_NumOfActiveColsForInput, writer);
             ser.SerializeValue(this.m_InOutMap, writer);
             ser.SerializeValue(this.m_IsStable, writer);
+
+            ser.SerializeEnd(nameof(HomeostaticPlasticityController), writer);
             
             if (this.m_HtmMemory != null)
             {
                 this.m_HtmMemory.Serialize(writer);
             }
-            
-            ser.SerializeEnd(nameof(HomeostaticPlasticityController), writer);
-            
         }
 
         public static HomeostaticPlasticityController Deserialize(StreamReader sr)
