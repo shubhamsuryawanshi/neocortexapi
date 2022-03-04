@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -765,29 +766,103 @@ namespace NeoCortexApi.Entities
         }
 
 
-        internal static bool IsEqual(object obj1, object obj2)
+        public static bool IsEqual(object obj1, object obj2)
         {
-            const System.Reflection.BindingFlags bindingAttr = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
-
-            var props1 = obj1.GetType().GetProperties(bindingAttr);
-
-            foreach (var prop1 in props1)
+            if (obj1 == null && obj2 == null)
             {
-                var prop2 = obj1.GetType().GetProperty(prop1.Name);
-                if (prop2.GetType().IsClass)
-                {
-                    if (!IsEqual(prop1, prop2))
-                        throw new Exception("todo/..");
-                }
-
-                if (prop1.GetValue(obj2) != prop2.GetValue(obj1))
-                    throw new Exception("todo.");
+                return true;
+            }
+            else if ((obj1 == null && obj2 != null) || (obj1 != null && obj2 == null))
+            {
+                return false;
             }
 
-            var fields = obj1.GetType().GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            var type = obj1.GetType();
 
 
-            return false;
+            if (type.IsPrimitive || type == typeof(Decimal) || type == typeof(String))
+            {
+                var obj1Value = obj1.ToString();
+                var obj2Value = obj2.ToString();
+
+                if (obj1Value != obj2Value)
+                {
+                    return false;
+                }
+            }
+            else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>))
+            {
+                var dict1 = obj1 as IDictionary;
+                var dict2 = obj2 as IDictionary;
+
+                var keys = dict1.Keys;
+
+                foreach (var key in keys)
+                {
+                    var dict1Item = dict1[key];
+                    var dict2Item = dict2[key];
+                    if (!IsEqual(dict1Item, dict2Item))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ConcurrentDictionary<,>))
+            {
+                // TODO
+            }
+            else if (type.FullName.StartsWith("System.Action"))
+            {
+                // SKIP
+            }
+            else if (type.IsArray)
+            {
+                var array1 = (IEnumerable)obj1;
+                var array2 = (IEnumerable)obj2;
+
+                var sequence1 = array1.GetEnumerator();
+                var sequence2 = array2.GetEnumerator();
+
+                while (sequence1.MoveNext())
+                {
+                    sequence2.MoveNext();
+                    if (!IsEqual(sequence1.Current, sequence2.Current))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>))
+            {
+                // TODO
+            }
+            else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ISet<>))
+            {
+                // TODO
+            }
+            else if (type.IsAbstract)
+            {
+                // SKIP
+            }
+            else
+            {
+                const System.Reflection.BindingFlags bindingAttr = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance;
+
+                var props1 = obj1.GetType().GetFields(bindingAttr); //GetProperties(bindingAttr);
+
+                foreach (var prop1 in props1)
+                {
+                    var name = prop1.Name;
+                    var prop2 = obj2.GetType().GetField(name, bindingAttr);
+
+                    if (!IsEqual(prop1.GetValue(obj1), prop2.GetValue(obj2)))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
     }
