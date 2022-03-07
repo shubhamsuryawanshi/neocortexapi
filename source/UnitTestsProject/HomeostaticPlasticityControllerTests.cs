@@ -89,13 +89,17 @@ namespace UnitTestsProject
             string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/testSerialize.txt");
             string filePath = Path.GetFullPath(fileName);
+            HomeostaticPlasticityController deserializedObject = null;
 
-            StreamWriter streamWriter = new StreamWriter(filePath);
-            homeostaticPlasticityController.Serialize(streamWriter);
-            streamWriter.Close();
+            using (StreamWriter streamWriter = new StreamWriter(filePath))
+            {
+                homeostaticPlasticityController.Serialize(streamWriter);
+            }
 
-            StreamReader streamReader = new StreamReader(filePath);
-            HomeostaticPlasticityController deserializedObject = HomeostaticPlasticityController.Deserialize(streamReader, htmMemory);
+            using (StreamReader streamReader = new StreamReader(filePath))
+            {
+                deserializedObject = HomeostaticPlasticityController.Deserialize(streamReader, htmMemory);
+            }
 
             Assert.IsTrue(homeostaticPlasticityController.Equals(deserializedObject));
         }
