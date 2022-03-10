@@ -74,7 +74,9 @@ namespace UnitTestsProject
         {
             int[] originArray = { 1, 2, 3, 4, 5 };
             int[] comparingArray = { 6, 7, 3, 4, 5 };
+
             double result = HomeostaticPlasticityController.CalcArraySimilarityOld2(originArray, comparingArray);
+            
             Assert.AreEqual(0.6, result);
         }
 
