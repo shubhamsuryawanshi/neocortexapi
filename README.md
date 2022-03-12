@@ -1,22 +1,10 @@
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/ddobric/htmdotnet/blob/master/LICENSE)
+[![buildStatus](https://github.com/ddobric/neocortexapi/workflows/.NET%20Core/badge.svg)](https://github.com/ddobric/neocortexapi/actions?query=workflow%3A%22.NET+Core%22)
+
 # Introduction
-This repository is created for Software Engineering Project purpose, it is a fork of the [NeoCortexApi](https://github.com/ddobric/neocortexapi).
-Documentation related to the project are placed in `/MyFolder` directory.
-
-Project Details:
-- Project Title - ML21/22 28.Improve UnitTests: HomeostaticPlasticityController
-- Project Group name - Team1
-- Project Group members:  
-    - Shubham Pramod Suryawanshi    
-    GitHub Account - https://github.com/shubhamsuryawanshi  
-    Project Branch - https://github.com/shubhamsuryawanshi/neocortexapi/tree/shubham  
-    Project Commit History - https://github.com/shubhamsuryawanshi/neocortexapi/commits/shubham?author=shubhamsuryawanshi  
-    Matriculation No. - 1384291  
-
-Information regarding the [NeoCortexApi](https://github.com/ddobric/neocortexapi) is provided below  
-
-[NeoCortexApi](https://github.com/ddobric/neocortexapi) is the open source implementation of the Hierarchical Temporal Memory in C#/.NET Core. [NeoCortexApi](https://github.com/ddobric/neocortexapi) contains set of libraries around **NeoCortext** API .NET Core library. **NeoCortex** API focuses implementation of _Hierarchical Temporal Memory Cortical Learning Algorithm_. Current version is first implementation of this algorithm on .NET platform. It includes the **Spatial Pooler**, **Temporal Pooler**, various encoders and **CorticalNetwork**  algorithms. Implementation of this library aligns to existing Python and JAVA implementation of HTM. Due similarities between JAVA and C#, current API of SpatialPooler in C# is very similar to JAVA API. However the implementation of future versions will include some API changes to API style, which is additionally more aligned to C# community.
-[NeoCortexApi](https://github.com/ddobric/neocortexapi) also cotains first experimental implementation of distributed highly scalable HTM CLA based on Actor Programming Model.
-The code published [here](https://github.com/ddobric/neocortexapi) is experimental code implemented during the research at daenet and Frankfurt University of Applied Sciences. 
+This repository is the open source implementation of the Hierarchical Temporal Memory in C#/.NET Core. This repository contains set of libraries around **NeoCortext** API .NET Core library. **NeoCortex** API focuses implementation of _Hierarchical Temporal Memory Cortical Learning Algorithm_. Current version is first implementation of this algorithm on .NET platform. It includes the **Spatial Pooler**, **Temporal Pooler**, various encoders and **CorticalNetwork**  algorithms. Implementation of this library aligns to existing Python and JAVA implementation of HTM. Due similarities between JAVA and C#, current API of SpatialPooler in C# is very similar to JAVA API. However the implementation of future versions will include some API changes to API style, which is additionally more aligned to C# community.
+This repository also cotains first experimental implementation of distributed highly scalable HTM CLA based on Actor Programming Model.
+The code published here is experimental code implemented during my research at daenet and Frankfurt University of Applied Sciences. 
 
 ## Getting started
 NeoCortexApi is today built as .NET Standard 2.2 library. It contains all artefacts required to run **SpatialPooler**, **TemoralPooler** and few encoders.
