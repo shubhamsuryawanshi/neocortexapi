@@ -107,12 +107,12 @@ namespace UnitTestsProject
         }
 
         [TestMethod]
-        [Description("HomeostaticPlasticityController with 100% requiredSimilarityThreshold, compute method will also return False as m_IsStable is False")]
+        [Description("HomeostaticPlasticityController with unrealistic requiredSimilarityThreshold, compute method output expected is False as m_IsStable is False")]
         public void TestCompute()
         {
             HtmConfig prms = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory = new Connections(prms);
-            double requiredSimilarityThreshold = 1;
+            double requiredSimilarityThreshold = -1;
             HomeostaticPlasticityController homeostaticPlasticityController = new HomeostaticPlasticityController(htmMemory, 5, null, 50, requiredSimilarityThreshold);
 
             bool res = homeostaticPlasticityController.Compute(new int[4], new int[4]);
