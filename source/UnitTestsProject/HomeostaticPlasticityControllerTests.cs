@@ -116,7 +116,7 @@ namespace UnitTestsProject
             HomeostaticPlasticityController homeostaticPlasticityController = new HomeostaticPlasticityController(htmMemory, 5, null, 50, requiredSimilarityThreshold);
 
             bool res = homeostaticPlasticityController.Compute(new int[4], new int[4]);
-            // Executing HomeostaticPlasticityController.Compute method twice to increase code coverage
+            // In the second run of HomeostaticPlasticityController.Compute, condition m_InOutMap.ContainsKey(inpHash) is True
             res = homeostaticPlasticityController.Compute(new int[4], new int[4]);
 
             Assert.IsFalse(res);
