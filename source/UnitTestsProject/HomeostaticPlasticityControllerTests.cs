@@ -39,13 +39,12 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check GetHash function")]
-        public void GetHashTest()
+        [DataRow("��V�쬐�h���F@B���Wh�/ߌ?)K��I", new int[] { 1, 2, 3, 4, 5, 6 })]
+        [DataRow("Oj��e�o��Kf���*��n�?�>�e(�H��", new int[] { 1, 2, 3, 4, 5})]
+        public void GetHashTest(string hashValue, int[] obj)
         {
-            int[] a1 = { 1, 2, 3, 4, 5, 6 };
-
-            string result = HomeostaticPlasticityController.GetHash(a1);
-
-            Assert.AreEqual("��V�쬐�h���F@B���Wh�/ߌ?)K��I", result);
+            string result = HomeostaticPlasticityController.GetHash(obj);
+            Assert.AreEqual(hashValue, result);
         }
 
         [TestMethod]
