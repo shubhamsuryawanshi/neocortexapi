@@ -15,7 +15,7 @@ namespace UnitTestsProject
     {
         [TestMethod]
         [Description("Check CalcArraySimilarity function with empty arguments")]
-        public void TestCalcArraySimilarity1()
+        public void CalcArraySimilarityTest1()
         {
             int[] originArray = System.Array.Empty<int>();
             int[] comparingArray = System.Array.Empty<int>();
@@ -27,7 +27,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check CalcArraySimilarity function")]
-        public void TestCalcArraySimilarity2()
+        public void CalcArraySimilarityTest2()
         {
             int[] originArray = { 1, 2, 3, 4, 5 };
             int[] comparingArray = { 3, 4, 5, 6, 7 };
@@ -39,7 +39,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check GetHash function")]
-        public void TestGetHash()
+        public void GetHashTest()
         {
             int[] a1 = { 1, 2, 3, 4, 5, 6 };
 
@@ -50,7 +50,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check TraceState function")]
-        public void TestTraceState()
+        public void TraceStateTest()
         {
             string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/traceStateTest.txt");
@@ -70,7 +70,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check CalcArraySimilarityOld2 function")]
-        public void TestCalcArraySimilarityOld2()
+        public void CalcArraySimilarityOldTest2()
         {
             int[] originArray = { 1, 2, 3, 4, 5 };
             int[] comparingArray = { 6, 7, 3, 4, 5 };
@@ -82,7 +82,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Serialization and Deserialization for a HomeostaticPlasticityController object")]
-        public void TestDeserialize()
+        public void DeserializeTest()
         {
             HtmConfig prms = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory = new Connections(prms);
@@ -108,7 +108,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("HomeostaticPlasticityController with unrealistic requiredSimilarityThreshold, compute method output expected is False as m_IsStable is False")]
-        public void TestCompute()
+        public void ComputeTest()
         {
             HtmConfig prms = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory = new Connections(prms);
@@ -124,7 +124,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Equals function: when HomeostaticPlasticityController is compared to itself")]
-        public void TestEquals1()
+        public void EqualsTest1()
         {
             HomeostaticPlasticityController obj = new HomeostaticPlasticityController();
 
@@ -135,7 +135,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Equals function: when HomeostaticPlasticityController is compared to null")]
-        public void TestEquals2()
+        public void EqualsTest2()
         {
             HomeostaticPlasticityController obj = new HomeostaticPlasticityController();
 
@@ -146,7 +146,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Equals function: when htmMemory for one HomeostaticPlasticityController is null")]
-        public void TestEquals3()
+        public void EqualsTest3()
         {
             HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController();
             HtmConfig prms = new HtmConfig(new int[4], new int[4]);
@@ -160,7 +160,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Equals function: when htmMemory is different for HomeostaticPlasticityController objects")]
-        public void TestEquals4()
+        public void EqualsTest4()
         {
             HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory1 = new Connections(prms1);
@@ -176,7 +176,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Equals function: when requiredSimilarityThreshold is different for HomeostaticPlasticityController objects")]
-        public void TestEquals5()
+        public void EqualsTest5()
         {
             HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory1 = new Connections(prms1);
@@ -192,7 +192,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Equals function: when minCycles is different for HomeostaticPlasticityController objects")]
-        public void TestEquals6()
+        public void EqualsTest6()
         {
             HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory1 = new Connections(prms1);
@@ -207,7 +207,7 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Equals function: when numOfCyclesToWaitOnChange is different for HomeostaticPlasticityController objects")]
-        public void TestEquals7()
+        public void EqualsTest7()
         {
             HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory1 = new Connections(prms1);
