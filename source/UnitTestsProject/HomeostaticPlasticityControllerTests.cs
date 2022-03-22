@@ -14,29 +14,15 @@ namespace UnitTestsProject
     public class HomeostaticPlasticityControllerTests
     {
         [TestMethod]
-        [Description("Check CalcArraySimilarity function with empty arguments")]
-        public void CalcArraySimilarityTest1()
+        [Description("Check CalcArraySimilarity function under different scenarios")]
+        [DataRow(-1.0, new int[] {}, new int[] {})]
+        [DataRow(0.6, new int[] {1,2,3,4,5}, new int[] {3,4,5,6,7})]
+        public void CalcArraySimilarityTest(double expectedResult, int[] arrayOne, int[] arrayTwo)
         {
-            int[] originArray = System.Array.Empty<int>();
-            int[] comparingArray = System.Array.Empty<int>();
-
-            double result = HomeostaticPlasticityController.CalcArraySimilarity(originArray, comparingArray);
-
-            Assert.AreEqual(-1.0, result);
+            double result = HomeostaticPlasticityController.CalcArraySimilarity(arrayOne, arrayTwo);
+            Assert.AreEqual(expectedResult, result);
         }
-
-        [TestMethod]
-        [Description("Check CalcArraySimilarity function")]
-        public void CalcArraySimilarityTest2()
-        {
-            int[] originArray = { 1, 2, 3, 4, 5 };
-            int[] comparingArray = { 3, 4, 5, 6, 7 };
-
-            double result = HomeostaticPlasticityController.CalcArraySimilarity(originArray, comparingArray);
-
-            Assert.AreEqual(0.6, result);
-        }
-
+        
         [TestMethod]
         [Description("Check GetHash function")]
         [DataRow("��V�쬐�h���F@B���Wh�/ߌ?)K��I", new int[] { 1, 2, 3, 4, 5, 6 })]
@@ -69,14 +55,11 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check CalcArraySimilarityOld2 function")]
-        public void CalcArraySimilarityOldTest2()
+        [DataRow(0.6, new int[] {1,2,3,4,5}, new int[] {6,7,3,4,5})]
+        public void CalcArraySimilarityOld2Test(double expectedResult, int[] arrayOne, int[] arrayTwo)
         {
-            int[] originArray = { 1, 2, 3, 4, 5 };
-            int[] comparingArray = { 6, 7, 3, 4, 5 };
-
-            double result = HomeostaticPlasticityController.CalcArraySimilarityOld2(originArray, comparingArray);
-            
-            Assert.AreEqual(0.6, result);
+            double result = HomeostaticPlasticityController.CalcArraySimilarityOld2(arrayOne, arrayTwo);
+            Assert.AreEqual(expectedResult, result);
         }
 
         [TestMethod]
