@@ -108,99 +108,53 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check Equals function: when HomeostaticPlasticityController is compared to itself")]
-        public void EqualsTest1()
+        public void EqualsTest()
         {
             HomeostaticPlasticityController obj = new HomeostaticPlasticityController();
-
+            // Comparing a HomeostaticPlasticityController to itself
             bool result = obj.Equals(obj);
-
             Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        [Description("Check Equals function: when HomeostaticPlasticityController is compared to null")]
-        public void EqualsTest2()
-        {
-            HomeostaticPlasticityController obj = new HomeostaticPlasticityController();
-
-            bool result = obj.Equals(null);
-
+            
+            // Comparing a HomeostaticPlasticityController to null
+            result = obj.Equals(null);
             Assert.IsFalse(result);
-        }
-
-        [TestMethod]
-        [Description("Check Equals function: when htmMemory for one HomeostaticPlasticityController is null")]
-        public void EqualsTest3()
-        {
-            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController();
-            HtmConfig prms = new HtmConfig(new int[4], new int[4]);
-            Connections htmMemory = new Connections(prms);
-            HomeostaticPlasticityController obj2 = new HomeostaticPlasticityController(htmMemory, 5, null);
-
-            bool result = obj1.Equals(obj2);
-
-            Assert.IsFalse(result);
-        }
-
-        [TestMethod]
-        [Description("Check Equals function: when htmMemory is different for HomeostaticPlasticityController objects")]
-        public void EqualsTest4()
-        {
+            
+            // Comparing HomeostaticPlasticityController objects with different htmMemory
             HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory1 = new Connections(prms1);
             HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null);
             HtmConfig prms2 = new HtmConfig(new int[5], new int[5]);
             Connections htmMemory2 = new Connections(prms2);
             HomeostaticPlasticityController obj2 = new HomeostaticPlasticityController(htmMemory2, 5, null);
-
-            bool result = obj1.Equals(obj2);
-
+            result = obj1.Equals(obj2);
             Assert.IsFalse(result);
-        }
-
-        [TestMethod]
-        [Description("Check Equals function: when requiredSimilarityThreshold is different for HomeostaticPlasticityController objects")]
-        public void EqualsTest5()
-        {
-            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
-            Connections htmMemory1 = new Connections(prms1);
+            
+            // Comparing HomeostaticPlasticityController objects with different requiredSimilarityThreshold
+            prms1 = new HtmConfig(new int[4], new int[4]);
+            htmMemory1 = new Connections(prms1);
             double requiredSimilarityThreshold1 = 1.0;
-            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
+            obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
             double requiredSimilarityThreshold2 = 0.97;
-            HomeostaticPlasticityController obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold2);
-
-            bool result = obj1.Equals(obj2);
-
+            obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold2);
+            result = obj1.Equals(obj2);
             Assert.IsFalse(result);
-        }
-
-        [TestMethod]
-        [Description("Check Equals function: when minCycles is different for HomeostaticPlasticityController objects")]
-        public void EqualsTest6()
-        {
-            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
-            Connections htmMemory1 = new Connections(prms1);
-            double requiredSimilarityThreshold1 = 1.0;
-            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 4, null, 50, requiredSimilarityThreshold1);
-            HomeostaticPlasticityController obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
-
-            bool result = obj1.Equals(obj2);
-
+            
+            // Comparing HomeostaticPlasticityController objects with different minCycles
+            prms1 = new HtmConfig(new int[4], new int[4]);
+            htmMemory1 = new Connections(prms1);
+            requiredSimilarityThreshold1 = 1.0;
+            obj1 = new HomeostaticPlasticityController(htmMemory1, 4, null, 50, requiredSimilarityThreshold1);
+            obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
+            result = obj1.Equals(obj2);
             Assert.IsFalse(result);
-        }
-
-        [TestMethod]
-        [Description("Check Equals function: when numOfCyclesToWaitOnChange is different for HomeostaticPlasticityController objects")]
-        public void EqualsTest7()
-        {
-            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
-            Connections htmMemory1 = new Connections(prms1);
-            double requiredSimilarityThreshold1 = 1.0;
-            HomeostaticPlasticityController obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null, 40, requiredSimilarityThreshold1);
-            HomeostaticPlasticityController obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
-
-            bool result = obj1.Equals(obj2);
-
+            
+            // Comparing HomeostaticPlasticityController objects with different numOfCyclesToWaitOnChange
+            prms1 = new HtmConfig(new int[4], new int[4]);
+            htmMemory1 = new Connections(prms1);
+            requiredSimilarityThreshold1 = 1.0;
+            obj1 = new HomeostaticPlasticityController(htmMemory1, 5, null, 40, requiredSimilarityThreshold1);
+            obj2 = new HomeostaticPlasticityController(htmMemory1, 5, null, 50, requiredSimilarityThreshold1);
+            result = obj1.Equals(obj2);
             Assert.IsFalse(result);
         }
     }
