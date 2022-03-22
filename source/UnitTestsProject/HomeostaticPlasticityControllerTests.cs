@@ -35,22 +35,24 @@ namespace UnitTestsProject
 
         [TestMethod]
         [Description("Check TraceState function")]
-        public void TraceStateTest()
+        [DataRow("[0 - stable cycles: 0,len = 0] 	 ", "MinKey=,4��;��Z�*d7̣�~�	�%���X+Q�, min stable states=0", 10)]
+        [DataRow("[0 - stable cycles: 0,len = 0] 	 ", "MinKey=[o��a�GY9v}h�F����Z>��Q�QW��, min stable states=0", 20)]
+        public void TraceStateTest(string expectedTraceState1, string expectedTraceState2, int elements)
         {
             string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/traceStateTest.txt");
             string filePath = Path.GetFullPath(fileName);
 
-            string traceStateOutput = "";
-            HtmConfig prms1 = new HtmConfig(new int[4], new int[4]);
+            HtmConfig prms1 = new HtmConfig(new int[40], new int[40]);
             Connections htmMemory1 = new Connections(prms1);
-            double requiredSimilarityThreshold1 = 1.0;
+            double requiredSimilarityThreshold1 = 0.6;
             HomeostaticPlasticityController obj = new HomeostaticPlasticityController(htmMemory1, 10, null, 40, requiredSimilarityThreshold1);
-
+            obj.Compute(new int[elements], new int[elements]);
             obj.TraceState(filePath);
-            traceStateOutput = File.ReadLines(filePath).First();
-
-            Assert.AreEqual("MinKey=, min stable states=2147483647", traceStateOutput);
+            string traceStateOutput1 = File.ReadLines(filePath).First();
+            string traceStateOutput2 = File.ReadLines(filePath).Last();
+            Assert.AreEqual(expectedTraceState1, traceStateOutput1);
+            Assert.AreEqual(expectedTraceState2, traceStateOutput2);
         }
 
         [TestMethod]
