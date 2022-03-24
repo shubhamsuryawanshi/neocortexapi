@@ -1,9 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using NeoCortexApi;
+using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
+using NeoCortexApi.Network;
+using NeoCortexApi.Utility;
 
 namespace UnitTestsProject
 {
@@ -89,12 +94,14 @@ namespace UnitTestsProject
 
             Assert.IsTrue(homeostaticPlasticityController.Equals(deserializedObject));
         }
-
+        
         [TestMethod]
         [Description("HomeostaticPlasticityController with unrealistic requiredSimilarityThreshold, compute method output expected is False as m_IsStable is False")]
         public void ComputeTest()
         {
-            HtmConfig prms = new HtmConfig(new int[4], new int[4]);
+            int[] inputArray = new int[4];
+            int[] outputArray = new int[4];
+            HtmConfig prms = new HtmConfig(inputArray, outputArray);
             Connections htmMemory = new Connections(prms);
             double requiredSimilarityThreshold = -1;
             HomeostaticPlasticityController homeostaticPlasticityController = new HomeostaticPlasticityController(htmMemory, 5, null, 50, requiredSimilarityThreshold);
@@ -104,6 +111,28 @@ namespace UnitTestsProject
             res = homeostaticPlasticityController.Compute(new int[4], new int[4]);
 
             Assert.IsFalse(res);
+        }
+
+        [TestMethod]
+        [Description("Using HomeostaticPlasticityController in simulated training condition where stable state is achieved")]
+        public void ComputeTest2()
+        {
+            int[] inputArray = new int[4];
+            int[] outputArray = new int[4];
+            HtmConfig prms = new HtmConfig(inputArray, outputArray);
+            Connections htmMemory = new Connections(prms);
+            double requiredSimilarityThreshold = -1;
+            Action<bool, int, double, int> OnStabilityStatusUpdate = (a,b,c,d) => Console.WriteLine("Write {0}, {1}, {2}, {3}", a, b, c, d);
+            HomeostaticPlasticityController homeostaticPlasticityController =
+                new HomeostaticPlasticityController(htmMemory, 5, OnStabilityStatusUpdate, 15, requiredSimilarityThreshold);
+            bool res = false;
+
+            for (int i=0; i<20; i++)
+            {
+                res = homeostaticPlasticityController.Compute(inputArray, outputArray);
+            }
+            
+            Assert.IsTrue(res);
         }
 
         [TestMethod]
