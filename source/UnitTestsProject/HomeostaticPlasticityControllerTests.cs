@@ -76,7 +76,8 @@ namespace UnitTestsProject
             HtmConfig prms = new HtmConfig(new int[4], new int[4]);
             Connections htmMemory = new Connections(prms);
             double requiredSimilarityThreshold = 1.0;
-            HomeostaticPlasticityController homeostaticPlasticityController = new HomeostaticPlasticityController(htmMemory, 5, null, 50, requiredSimilarityThreshold);
+            HomeostaticPlasticityController homeostaticPlasticityController = 
+                new HomeostaticPlasticityController(htmMemory, 5, null, 50, requiredSimilarityThreshold);
             string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/testSerialize.txt");
             string filePath = Path.GetFullPath(fileName);
@@ -104,7 +105,8 @@ namespace UnitTestsProject
             HtmConfig prms = new HtmConfig(inputArray, outputArray);
             Connections htmMemory = new Connections(prms);
             double requiredSimilarityThreshold = -1;
-            HomeostaticPlasticityController homeostaticPlasticityController = new HomeostaticPlasticityController(htmMemory, 5, null, 50, requiredSimilarityThreshold);
+            HomeostaticPlasticityController homeostaticPlasticityController =
+                new HomeostaticPlasticityController(htmMemory, 5, null, 15, requiredSimilarityThreshold);
 
             bool res = homeostaticPlasticityController.Compute(new int[4], new int[4]);
             // In the second run of HomeostaticPlasticityController.Compute, condition m_InOutMap.ContainsKey(inpHash) is True
