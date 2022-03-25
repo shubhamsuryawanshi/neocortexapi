@@ -133,7 +133,7 @@ namespace UnitTestsProject
             {
                 res = homeostaticPlasticityController.Compute(inputArray, outputArray);
             }
-            
+            Assert.IsTrue(homeostaticPlasticityController.Get_m_IsStable());
             Assert.IsTrue(res);
         }
 

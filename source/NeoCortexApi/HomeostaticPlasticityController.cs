@@ -64,6 +64,14 @@ namespace NeoCortexApi
         /// Once SP enters the stable state and it becomes instable again, this value is set on false.
         /// </summary>
         private bool m_IsStable = false;
+        
+        /// <summary>
+        /// Getter method for private variable m_IsStable
+        /// </summary>
+        public bool Get_m_IsStable()
+        {
+            return m_IsStable;
+        }
 
         /// <summary>
         /// Creates the instance of the HPC to stabilize the Spatial Pooler learning process.
