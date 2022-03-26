@@ -136,6 +136,33 @@ namespace UnitTestsProject
             Assert.IsTrue(homeostaticPlasticityController.Get_m_IsStable());
             Assert.IsTrue(res);
         }
+        
+        [TestMethod]
+        [Description("Using HomeostaticPlasticityController in simulated training condition to check private variables")]
+        public void ComputeTest3()
+        {
+            int[] inputArray = new int[4];
+            int[] outputArray = new int[4];
+            HtmConfig prms = new HtmConfig(inputArray, outputArray);
+            Connections htmMemory = new Connections(prms);
+            double requiredSimilarityThreshold = -1;
+            Dictionary<string, int> stableCyclesForInput = null;
+            int requiredNumOfStableCycles = 0;
+            Action<bool, int, double, int> OnStabilityStatusUpdate = (a,b,c,d) => Console.WriteLine("Write {0}, {1}, {2}, {3}", a, b, c, d);
+            HomeostaticPlasticityController homeostaticPlasticityController =
+                new HomeostaticPlasticityController(htmMemory, 5, OnStabilityStatusUpdate, 15, requiredSimilarityThreshold);
+
+            for (int i=0; i<20; i++)
+            {
+                homeostaticPlasticityController.Compute(inputArray, outputArray);
+            }
+
+            stableCyclesForInput = homeostaticPlasticityController.Get_m_NumOfStableCyclesForInput();
+            requiredNumOfStableCycles = homeostaticPlasticityController.Get_m_RequiredNumOfStableCycles();
+            
+            Assert.IsTrue(stableCyclesForInput[HomeostaticPlasticityController.GetHash(inputArray)] > requiredNumOfStableCycles);
+            Assert.IsTrue(homeostaticPlasticityController.Get_m_IsStable());
+        }
 
         [TestMethod]
         [Description("Check Equals function: when HomeostaticPlasticityController is compared to itself")]

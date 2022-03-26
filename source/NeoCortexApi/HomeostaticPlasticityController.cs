@@ -74,6 +74,22 @@ namespace NeoCortexApi
         }
 
         /// <summary>
+        /// Getter method for private variable m_RequiredNumOfStableCycles
+        /// </summary>
+        public int Get_m_RequiredNumOfStableCycles()
+        {
+            return m_RequiredNumOfStableCycles;
+        }
+
+        /// <summary>
+        /// Getter method for private variable m_NumOfStableCyclesForInput
+        /// </summary>
+        public Dictionary<string, int> Get_m_NumOfStableCyclesForInput()
+        {
+            return m_NumOfStableCyclesForInput;
+        }
+
+        /// <summary>
         /// Creates the instance of the HPC to stabilize the Spatial Pooler learning process.
         /// </summary>
         /// <param name="htmMemory">The initialized HTM memory.</param>
