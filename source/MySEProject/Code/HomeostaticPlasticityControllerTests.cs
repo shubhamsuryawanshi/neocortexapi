@@ -1,14 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using NeoCortexApi;
-using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
-using NeoCortexApi.Network;
-using NeoCortexApi.Utility;
 
 namespace UnitTestsProject
 {
@@ -19,9 +15,10 @@ namespace UnitTestsProject
     public class HomeostaticPlasticityControllerTests
     {
         [TestMethod]
-        [Description("Check CalcArraySimilarity function under different scenarios")]
+        [Description("Check CalcArraySimilarity method in different scenarios")]
         [DataRow(-1.0, new int[] {}, new int[] {})]
         [DataRow(0.6, new int[] {1,2,3,4,5}, new int[] {3,4,5,6,7})]
+        [DataRow(0.0, new int[] {1,2,3}, new int[] {4,5,6})]
         public void CalcArraySimilarityTest(double expectedResult, int[] arrayOne, int[] arrayTwo)
         {
             double result = HomeostaticPlasticityController.CalcArraySimilarity(arrayOne, arrayTwo);
@@ -51,9 +48,10 @@ namespace UnitTestsProject
             HtmConfig prms1 = new HtmConfig(new int[40], new int[40]);
             Connections htmMemory1 = new Connections(prms1);
             double requiredSimilarityThreshold1 = 0.6;
-            HomeostaticPlasticityController obj = new HomeostaticPlasticityController(htmMemory1, 10, null, 40, requiredSimilarityThreshold1);
-            obj.Compute(new int[elements], new int[elements]);
-            obj.TraceState(filePath);
+            HomeostaticPlasticityController homeostaticPlasticityController = 
+                new HomeostaticPlasticityController(htmMemory1, 10, null, 40, requiredSimilarityThreshold1);
+            homeostaticPlasticityController.Compute(new int[elements], new int[elements]);
+            homeostaticPlasticityController.TraceState(filePath);
             string traceStateOutput1 = File.ReadLines(filePath).First();
             string traceStateOutput2 = File.ReadLines(filePath).Last();
             Assert.AreEqual(expectedTraceState1, traceStateOutput1);
@@ -133,7 +131,6 @@ namespace UnitTestsProject
             {
                 res = homeostaticPlasticityController.Compute(inputArray, outputArray);
             }
-            Assert.IsTrue(homeostaticPlasticityController.Get_m_IsStable());
             Assert.IsTrue(res);
         }
         
@@ -148,6 +145,7 @@ namespace UnitTestsProject
             double requiredSimilarityThreshold = -1;
             Dictionary<string, int> stableCyclesForInput = null;
             int requiredNumOfStableCycles = 0;
+            bool isStable = false;
             Action<bool, int, double, int> OnStabilityStatusUpdate = (a,b,c,d) => Console.WriteLine("Write {0}, {1}, {2}, {3}", a, b, c, d);
             HomeostaticPlasticityController homeostaticPlasticityController =
                 new HomeostaticPlasticityController(htmMemory, 5, OnStabilityStatusUpdate, 15, requiredSimilarityThreshold);
@@ -159,17 +157,18 @@ namespace UnitTestsProject
 
             stableCyclesForInput = homeostaticPlasticityController.Get_m_NumOfStableCyclesForInput();
             requiredNumOfStableCycles = homeostaticPlasticityController.Get_m_RequiredNumOfStableCycles();
+            isStable = homeostaticPlasticityController.Get_m_IsStable();
             
             Assert.IsTrue(stableCyclesForInput[HomeostaticPlasticityController.GetHash(inputArray)] > requiredNumOfStableCycles);
-            Assert.IsTrue(homeostaticPlasticityController.Get_m_IsStable());
+            Assert.IsTrue(isStable);
         }
 
         [TestMethod]
-        [Description("Check Equals function: when HomeostaticPlasticityController is compared to itself")]
+        [Description("Check Equals method under different scenarios")]
         public void EqualsTest()
         {
-            HomeostaticPlasticityController obj = new HomeostaticPlasticityController();
             // Comparing a HomeostaticPlasticityController to itself
+            HomeostaticPlasticityController obj = new HomeostaticPlasticityController();
             bool result = obj.Equals(obj);
             Assert.IsTrue(result);
             
