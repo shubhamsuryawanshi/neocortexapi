@@ -61,6 +61,7 @@ namespace UnitTestsProject
         [TestMethod]
         [Description("Check CalcArraySimilarityOld2 function")]
         [DataRow(0.6, new int[] {1,2,3,4,5}, new int[] {6,7,3,4,5})]
+        [DataRow(0.0, new int[] {1,2,3,4,5}, new int[] {6,7,8,9,10})]
         public void CalcArraySimilarityOld2Test(double expectedResult, int[] arrayOne, int[] arrayTwo)
         {
             double result = HomeostaticPlasticityController.CalcArraySimilarityOld2(arrayOne, arrayTwo);
@@ -68,7 +69,7 @@ namespace UnitTestsProject
         }
 
         [TestMethod]
-        [Description("Check Serialization and Deserialization for a HomeostaticPlasticityController object")]
+        [Description("Validate Serialization and Deserialization operation for a HomeostaticPlasticityController object")]
         public void DeserializeTest()
         {
             HtmConfig prms = new HtmConfig(new int[4], new int[4]);
@@ -95,7 +96,7 @@ namespace UnitTestsProject
         }
         
         [TestMethod]
-        [Description("HomeostaticPlasticityController with unrealistic requiredSimilarityThreshold, compute method output expected is False as m_IsStable is False")]
+        [Description("HomeostaticPlasticityController with unrealistic parameters, compute method output expected is False as m_IsStable is False")]
         public void ComputeTest()
         {
             int[] inputArray = new int[4];
@@ -114,7 +115,7 @@ namespace UnitTestsProject
         }
 
         [TestMethod]
-        [Description("Using HomeostaticPlasticityController in simulated training condition where stable state is achieved")]
+        [Description("Using HomeostaticPlasticityController in simulated training conditions where stable state is achieved")]
         public void ComputeTest2()
         {
             int[] inputArray = new int[4];
@@ -124,10 +125,10 @@ namespace UnitTestsProject
             double requiredSimilarityThreshold = -1;
             Action<bool, int, double, int> OnStabilityStatusUpdate = (a,b,c,d) => Console.WriteLine("Write {0}, {1}, {2}, {3}", a, b, c, d);
             HomeostaticPlasticityController homeostaticPlasticityController =
-                new HomeostaticPlasticityController(htmMemory, 5, OnStabilityStatusUpdate, 15, requiredSimilarityThreshold);
+                new HomeostaticPlasticityController(htmMemory, 5, OnStabilityStatusUpdate, 10, requiredSimilarityThreshold);
             bool res = false;
 
-            for (int i=0; i<20; i++)
+            for (int i=0; i<30; i++)
             {
                 res = homeostaticPlasticityController.Compute(inputArray, outputArray);
             }
@@ -135,7 +136,7 @@ namespace UnitTestsProject
         }
         
         [TestMethod]
-        [Description("Using HomeostaticPlasticityController in simulated training condition to check private variables")]
+        [Description("Using HomeostaticPlasticityController in simulated training conditions to check the state of private variables")]
         public void ComputeTest3()
         {
             int[] inputArray = new int[4];
