@@ -36,21 +36,56 @@ namespace UnitTestsProject
         }
 
         [TestMethod]
-        [Description("Check TraceState function")]
-        [DataRow("[0 - stable cycles: 0,len = 0] 	 ", "MinKey=,4��;��Z�*d7̣�~�	�%���X+Q�, min stable states=0", 10)]
-        [DataRow("[0 - stable cycles: 0,len = 0] 	 ", "MinKey=[o��a�GY9v}h�F����Z>��Q�QW��, min stable states=0", 20)]
+        [Description("Check TraceState function when stable state is never achieved")]
+        [DataRow("[0 - stable cycles: 0,len = 0] 	 ", "MinKey=7G��q�՗��u�l�(om<��1z;%c*�(�7�, min stable states=0", 10)]
         public void TraceStateTest(string expectedTraceState1, string expectedTraceState2, int elements)
         {
             string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/traceStateTest.txt");
             string filePath = Path.GetFullPath(fileName);
+            int[] inputArray = new int[4];
+            int[] outputArray = new int[4];
+            HtmConfig prms = new HtmConfig(inputArray, outputArray);
+            Connections htmMemory = new Connections(prms);
+            double requiredSimilarityThreshold = 0.6;
+            Action<bool, int, double, int> OnStabilityStatusUpdate = (a,b,c,d) => Console.WriteLine("Write {0}, {1}, {2}, {3}", a, b, c, d);
+            HomeostaticPlasticityController homeostaticPlasticityController =
+                new HomeostaticPlasticityController(htmMemory, 5, OnStabilityStatusUpdate, 12, requiredSimilarityThreshold);
+            bool res = false;
 
-            HtmConfig prms1 = new HtmConfig(new int[40], new int[40]);
-            Connections htmMemory1 = new Connections(prms1);
-            double requiredSimilarityThreshold1 = 0.6;
-            HomeostaticPlasticityController homeostaticPlasticityController = 
-                new HomeostaticPlasticityController(htmMemory1, 10, null, 40, requiredSimilarityThreshold1);
-            homeostaticPlasticityController.Compute(new int[elements], new int[elements]);
+            for (int i=0; i<10; i++)
+            {
+                res = homeostaticPlasticityController.Compute(inputArray, outputArray);
+            }
+            homeostaticPlasticityController.TraceState(filePath);
+            string traceStateOutput1 = File.ReadLines(filePath).First();
+            string traceStateOutput2 = File.ReadLines(filePath).Last();
+            Assert.AreEqual(expectedTraceState1, traceStateOutput1);
+            Assert.AreEqual(expectedTraceState2, traceStateOutput2);
+        }
+        
+        [TestMethod]
+        [Description("Check TraceState function with some stable cycles")]
+        [DataRow("[0 - stable cycles: 29,len = 0] 	 ", "MinKey=7G��q�՗��u�l�(om<��1z;%c*�(�7�, min stable states=29", 10)]
+        public void TraceStateTest2(string expectedTraceState1, string expectedTraceState2, int elements)
+        {
+            string currentBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string fileName = System.IO.Path.Combine(currentBaseDirectory, @"TestFiles/traceStateTest.txt");
+            string filePath = Path.GetFullPath(fileName);
+            int[] inputArray = new int[4];
+            int[] outputArray = new int[4];
+            HtmConfig prms = new HtmConfig(inputArray, outputArray);
+            Connections htmMemory = new Connections(prms);
+            double requiredSimilarityThreshold = -1;
+            Action<bool, int, double, int> OnStabilityStatusUpdate = (a,b,c,d) => Console.WriteLine("Write {0}, {1}, {2}, {3}", a, b, c, d);
+            HomeostaticPlasticityController homeostaticPlasticityController =
+                new HomeostaticPlasticityController(htmMemory, 5, OnStabilityStatusUpdate, 10, requiredSimilarityThreshold);
+            bool res = false;
+
+            for (int i=0; i<30; i++)
+            {
+                res = homeostaticPlasticityController.Compute(inputArray, outputArray);
+            }
             homeostaticPlasticityController.TraceState(filePath);
             string traceStateOutput1 = File.ReadLines(filePath).First();
             string traceStateOutput2 = File.ReadLines(filePath).Last();
