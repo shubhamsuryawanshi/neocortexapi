@@ -3,7 +3,7 @@
 | Project Team Name  | Team1  |
 | Team Members  | [Shubham Suryawanshi](https://github.com/shubhamsuryawanshi)  |
 | Project Commits  | [Link](https://github.com/shubhamsuryawanshi/neocortexapi/commits/shubham?author=shubhamsuryawanshi)  |
-| Forked Project Repository  | [Link](https://github.com/shubhamsuryawanshi/neocortexapi/tree/shubham)  |
+| Project Repository  | [Link](https://github.com/shubhamsuryawanshi/neocortexapi/tree/shubham)  |
 | Classroom Repository  | [Link](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2021-2022/tree/Team1)  |
 | MySEProject directory  | [Link](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2021-2022/tree/Team1/Source/MySEProject)  |
 
